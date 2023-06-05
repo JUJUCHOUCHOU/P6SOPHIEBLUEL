@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 a{
 	text-decoration: none;
@@ -62,6 +63,28 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+.editorMode__BarHeader{
+	display: flex;
+	background-color: black;
+	color: white;
+	height: 59px;
+	justify-content: center;
+	border-left-style: solid;
+	margin-left: -103px;
+	margin-right: -104px;
+	align-items: center;
+}
+.editorMode__BarHeader i{
+	padding: 1%;
+}
+.editorMode__button{
+	border-style: none;
+	border-radius: 60px;
+	padding: 10px 10px;
+	background-color: white;
+	margin-left: 1%;
+	font-style: 'Work sans';
+}
 section {
 	margin: 50px 0
 }
@@ -88,6 +111,7 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -113,22 +137,41 @@ li:hover {
 	display: block;
 	margin: auto;
 	width: 80%;
+	padding-bottom: 2%;
 }
-
+.editorMode__idImage{
+	padding-left: 10%;
+}
 #introduction article {
 	flex: 1
 }
 #introduction h2 {
 	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 1.5em;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: Work Sans;
+	font-style: Regular;
+	color: #3D3D3D;
+	vertical-align: Top;
+	width: 69%;
 }
 #portfolio h2,
 #authentification h2 {
 	text-align: center;
 	margin-bottom: 1em;
+}
+.portefolioBar{
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+}
+.editorMode__filterBar{
+	padding-left: 2%
 }
 .gallery {
 	width: 100%;
@@ -170,8 +213,8 @@ li:hover {
 }
 #contact,
 #authentification {
-	width: 50%;
-margin: auto;
+	width: 48%;
+	margin: auto; 
 }
 #contact > *,
 #authentification {
@@ -206,6 +249,7 @@ margin: auto;
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	resize: none;
 }
 
 input[type="submit"]{
@@ -223,4 +267,44 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+/* Modal CSS */
+
+#modal{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #cccccc;
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(1.1);
+	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+}
+.modalContent{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #eeeeee;
+	padding: 1rem 1.5rem;
+	width: 24rem;
+	border-radius: 0.5rem;
+
+}
+.modalCloseCross{
+	float: right;
+	width: 1rem;
+	line-height: 1.5rem;
+	text-align: center;
+	cursor: pointer;
+	background-color: #eeeeee;
+}
+.modalOpen{
+	opacity: 1;
+	visibility: visible;
+	transform: scale(1);
+	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }

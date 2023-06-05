@@ -69,21 +69,7 @@ const displayGallery = (works) => {
   
     });
   
-  //Modales!!
+
+
   
-  window.addEventListener('load', function(){
-    let stockPassword = localStorage.getItem('token');
-    let editorMode = document.getElementById('EditorMode');
-  
-    if (stockEmail, stockPassword){
-        editorMode.classList.add("editorModeCss").style;
-        //visibility:visible?
-    }else{
-        window.location.href = "./front-end/js/index.html";
-        //editorMode.style.display: none;
-        //ou visibility:hidden?
-    }
-  
-  
-  })
   
