@@ -17,7 +17,6 @@ const login = function (mail, password) {
     .then(function (response) {
       console.log(response)
       if (response.ok) {
-        //modal.style.display = "block";
         return response.json();
       } else {
         throw new Error('Identifiants incorrects');
@@ -50,21 +49,4 @@ formulaire.addEventListener('submit', function (event) {
   }
 });
 
-  //Modal open & close function
-/*const buttonModal = document.querySelector(".modalButton");
-const closeButton = document.querySelector(".closeButton");
 
-function toggleModal(){//add CSS class to modal
-  modal.classList.add("modalOpen");
-}
-function modalOpenOnClick(event){
-  if(event.target===modal){
-    toggleModal()
-  }
-}
-buttonModal.addEventListener('click', toggleModal);
-
-closeButton.addEventListener('click', toggleModal);
-
-modalOpenOnClick.addEventListener('click', modalOpenOnClick);
-*/

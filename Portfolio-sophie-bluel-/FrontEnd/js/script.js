@@ -69,7 +69,61 @@ const displayGallery = (works) => {
   
     });
   
+const token = localStorage.getItem('token');
+if (token){
+  // créer chaque elements de connection
+const headerBar = document.createElement('div');
+headerBar.textContent='Mode édition';
+headerBar.classList.add('editorMode__BarHeader')
 
+const headerBarButton = document.createElement('button');
+headerBarButton.textContent ='publier les changements';
+headerBarButton.classList.add("editorMode__button");
+
+const idImage = document.createElement('div');
+idImage.textContent ='modifier';
+idImage.classList.add("editorMode__idImage");
+
+const filters = document.createElement('div');
+filters.textContent= 'modifier';
+filters.classList.add("editorMode__filterBar");
+
+const fontModal = document.createElement('i');
+//fontModal.classList.add("fa-regular fa-pen-to-square");
+headerBar.appendChild(fontModal);
+idImage.appendChild(fontModal);
+filter.appendChild(fontModal);
+
+document.body.appendChild(headerBar);
+document.body.appendChild(idImage);
+document.body.appendChild(filters);
+
+  // modifier login logout(+vide localstorage)
+  const logOut = document.getElementById("loginButton");
+  logOut.textContent= 'Logout';
+  logOut.classList.add('nav li');
+  localStorage.clear();
+
+  //ajouter un event click pour appeler la modale (differente selon le bouton)
+
+  const modalButton = [headerBarButton, idImage, filters];
+
+  modalButton.forEach(function(button){
+    button.addEventListener('click', function(event){
+      //quel bouton?
+      const clikedModalButton = event.target;
+
+      if(clikedModalButton===headerBarButton){
+
+      }else if(clikedModalButton === idImage){
+
+      }else if(clikedModalButton===filters){
+
+      }
+    });
+  });
+
+}
 
   
   
