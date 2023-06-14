@@ -14,6 +14,7 @@ const login = function (mail, password) {
       password: password
     })
   })
+
     .then(function (response) {
       console.log(response)
       if (response.ok) {
@@ -45,7 +46,6 @@ formulaire.addEventListener('submit', function (event) {
     login(mail, password);
   } else {
     alert('Identification incorrecte');
-
   }
 });
 

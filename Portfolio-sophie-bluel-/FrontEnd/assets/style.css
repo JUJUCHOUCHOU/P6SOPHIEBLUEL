@@ -53,7 +53,7 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
+	max-width: 1440px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -63,32 +63,9 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
-.editorMode__BarHeader{
-	display: flex;
-	background-color: black;
-	color: white;
-	height: 59px;
-	justify-content: center;
-	border-left-style: solid;
-	margin-left: -103px;
-	margin-right: -104px;
-	align-items: center;
-}
-.editorMode__BarHeader i{
-	padding: 1%;
-}
-.editorMode__button{
-	border-style: none;
-	border-radius: 60px;
-	padding: 10px 10px;
-	background-color: white;
-	margin-left: 1%;
-	font-style: 'Work sans';
-}
 section {
 	margin: 50px 0
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -97,33 +74,32 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
 ;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
 }
-
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
-
 li:hover {
+	color: #B1663C;
+}
+.loginButton:hover {
 	color: #B1663C;
 }
 #introduction {
@@ -139,9 +115,6 @@ li:hover {
 	width: 80%;
 	padding-bottom: 2%;
 }
-.editorMode__idImage{
-	padding-left: 10%;
-}
 #introduction article {
 	flex: 1
 }
@@ -149,7 +122,6 @@ li:hover {
 	margin-bottom: 1em;
 	margin-top: 1em;
 }
-
 #introduction p {
 	margin-bottom: 1.5em;
 	font-size: 14px;
@@ -170,9 +142,6 @@ li:hover {
 	justify-content: center;
 	align-items: baseline;
 }
-.editorMode__filterBar{
-	padding-left: 2%
-}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -180,7 +149,6 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 
@@ -268,31 +236,70 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+/*Editor Mode*/
+.editorMode__textEdition, 
+.editorMode__idImage, 
+.editorMode__filterBar{
+	position: relative;
+	width: fit-content;
+	cursor: pointer;
+	z-index: 1;
+}
+.editorMode__textEdition{
+	top: 177px;
+	left: 572px;	
+}
+
+.editorMode__filterBar{
+	top: 586px;
+	left: 680px;
+}
+.editorMode__idImage{
+	top: 535px;
+	left: 58px;
+}
+.editorMode__button{
+	border-style: none;
+	padding: 10px;
+	border-radius: 25px;
+	font-family: 'Work sans';
+	margin-left: 10px;
+	cursor: pointer;
+}
+.editorMode__BarHeader{
+	background-color: black;
+	display: flex;
+	max-width: 1140px;
+	height: 59px;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+
 /* Modal CSS */
 
 #modal{
+	display: none;
 	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #cccccc;
-	opacity: 0;
-	visibility: hidden;
+	background-color: rgba(0, 0, 0, 0.3);
 	transform: scale(1.1);
 	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-
+	z-index: 999;
 }
 .modalContent{
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #eeeeee;
+	background-color: #FFFEF8;
 	padding: 1rem 1.5rem;
 	width: 24rem;
 	border-radius: 0.5rem;
-
+	z-index: 1000;
 }
 .modalCloseCross{
 	float: right;
@@ -300,11 +307,18 @@ footer nav ul {
 	line-height: 1.5rem;
 	text-align: center;
 	cursor: pointer;
-	background-color: #eeeeee;
+	color: black;
 }
-.modalOpen{
-	opacity: 1;
-	visibility: visible;
-	transform: scale(1);
-	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+.fa-sharp{
+	position: fixed;
+	top: 33px;
+	left: 387px;
+}
+.modalTitle{
+	text-align: center;
+	font-size: 26px;
+	padding-top: 60px;
+}
+.modal__arrowBack{
+
 }
