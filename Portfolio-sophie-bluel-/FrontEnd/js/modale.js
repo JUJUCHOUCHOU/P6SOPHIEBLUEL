@@ -1,41 +1,93 @@
-// Modale galerie
-const modalOpen = document.getElementById('modal');
+// Appel à l'API
+fetch('http://localhost:5678/api/works')
+  .then(function (response) {
+    if (response.ok) {
+      return response.json();
+    }
+  })
+  .then(function (works) {
+    console.log(works);
 
-const modalContent = document.createElement('div');
-modalContent.classList.add('modalContent');
+    const modalOpen = document.getElementById('modal');
 
-const modalCloseCross = document.createElement('p');
-modalCloseCross.classList.add('fa-sharp', 'fa-regular', 'fa-xmark');
-// Titre
-const modalTitle = document.createElement('p');
-modalTitle.textContent = 'Galerie Photo';
-modalTitle.classList.add('modalTitle');
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modalContent');
+
+    const modalCloseCross = document.createElement('p');
+    modalCloseCross.classList.add('modalCloseCross');
+    modalCloseCross.textContent = "x";
+    //fermeture de ma modale au click et hors modale
+
+    function closeModale() {
+      modalOpen.style.display = "none";
+    }
+    modalCloseCross.addEventListener('click', closeModale);
+    window.addEventListener('click', function (event) {
+      if (event.target === modalOpen) {
+        closeModale();
+      }
+    });
+    // Titre
+    const modalTitle = document.createElement('p');
+    modalTitle.textContent = 'Galerie Photo';
+    modalTitle.classList.add('modalTitle');
+
+    //barre
+    const decoElement = document.createElement('div');
+    decoElement.classList.add('deco');
+
+    // Bouton "Ajouter une photo"
+    const addPhotoButton = document.createElement('button');
+    addPhotoButton.classList.add('addPhotoButton');
+    addPhotoButton.textContent = 'Ajouter une photo';
+    modalContent.appendChild(addPhotoButton);
+
+    // Texte "supprimer la galerie"
+    const deleteWord = document.createElement('p');
+    deleteWord.textContent = "Supprimer la galerie";
+    deleteWord.classList.add("deleteWord");
+
+    // Attacher les éléments au parent
+    modalOpen.appendChild(modalContent);
+    modalContent.appendChild(modalTitle);
+    modalContent.appendChild(modalCloseCross);
+    modalContent.appendChild(decoElement);
+    modalContent.appendChild(deleteWord);
+
+//poubelle sur chaque image
 
 
+    const imageForModal = (miniWorks) => {
+      const miniGallery = document.createElement('div');
+      miniGallery.classList.add('miniGallery');
 
-const figureModale = document.createElement('figure');
-const imageModale = document.createElement('img');
-const textModalFigure = document.createElement('figcaption');
+      miniWorks.forEach(function (miniWork) {
+        const miniImageUrl = miniWork.imageUrl;
+        const miniTitle = miniWork.title;
 
-// Attacher les éléments au parent
-modalOpen.appendChild(modalContent);
-modalContent.appendChild(modalTitle);
-modalContent.appendChild(modalCloseCross);
-modalOpen.appendChild(figureModale);
+        const figureModale = document.createElement('figure');
+        figureModale.classList.add('figureBox');
 
+        const imageModale = document.createElement('img');
+        imageModale.src = miniImageUrl;
+        figureModale.appendChild(imageModale);
+        imageModale.classList.add('miniImage');
 
+        const textModalFigure = document.createElement('figcaption');
+        textModalFigure.textContent = "éditer";
+        figureModale.appendChild(textModalFigure);
 
+        miniGallery.appendChild(figureModale);
+      });
 
-// Décoration CSS de la barre
-const decoElement = document.createElement('div');
-decoElement.classList.add('deco'); // Added a class name for styling
+      modalContent.appendChild(miniGallery);
+    };
 
-// Bouton "Ajouter une photo"
-const addPhotoButton = document.createElement('button');
-addPhotoButton.classList.add('addPhotoButton'); // Added a class name for styling
-addPhotoButton.textContent = 'Ajouter une photo';
-
-  //appendchild for each element
+    imageForModal(works);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   //delete gallery
 
    //requete delete
@@ -43,6 +95,7 @@ addPhotoButton.textContent = 'Ajouter une photo';
 //event listener bouton ajout photo qui ouvre l'autre modale
 // appel de l'api
 // fonction de suppression
+
 
 
 // requete post
@@ -64,4 +117,6 @@ addPhotoButton.textContent = 'Ajouter une photo';
 // si elements != title && !=categories && format alors affiche message d'erreur
 
 // requete post avec le fetch de maniere dynamique
+
+//close modale
 

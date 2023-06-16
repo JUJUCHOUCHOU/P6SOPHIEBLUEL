@@ -53,7 +53,7 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1440px;
+	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -231,7 +231,7 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-footer nav ul {
+footer nav ul{
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
@@ -247,11 +247,11 @@ footer nav ul {
 }
 .editorMode__textEdition{
 	top: 177px;
-	left: 572px;	
+	left: 563px;	
 }
 
 .editorMode__filterBar{
-	top: 586px;
+	top: 580px;
 	left: 680px;
 }
 .editorMode__idImage{
@@ -269,11 +269,14 @@ footer nav ul {
 .editorMode__BarHeader{
 	background-color: black;
 	display: flex;
-	max-width: 1140px;
+	max-width: 1440px;
 	height: 59px;
 	align-items: center;
 	justify-content: center;
 	color: white;
+	margin-left: -197px;
+	margin-right: -104px;
+	padding-left: 123px;
 }
 
 /* Modal CSS */
@@ -297,28 +300,73 @@ footer nav ul {
 	transform: translate(-50%, -50%);
 	background-color: #FFFEF8;
 	padding: 1rem 1.5rem;
-	width: 24rem;
+	width: 22rem;
+	height: 30rem;
 	border-radius: 0.5rem;
 	z-index: 1000;
 }
 .modalCloseCross{
-	float: right;
-	width: 1rem;
-	line-height: 1.5rem;
-	text-align: center;
+	position: relative;
+	left: 350px;
+	top: -48px;
+	width: max-content;
 	cursor: pointer;
 	color: black;
-}
-.fa-sharp{
-	position: fixed;
-	top: 33px;
-	left: 387px;
+	font-size: 18px;
 }
 .modalTitle{
 	text-align: center;
-	font-size: 26px;
-	padding-top: 60px;
+	font-size: 20px;
+	padding-top: 20px;
+}
+.miniGallery{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: start;
+	margin-left: 7%;
+	margin-top: -16px;
+}
+.figureBox{
+	width: 17%;
+	padding: 2px;
+}
+.miniImage{
+	width: 100%;
+	height: fit-content;
 }
 .modal__arrowBack{
-
+	color: black;
+}
+.addPhotoButton{
+	position: absolute;
+	top: 78%;
+	left: 25%;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	padding : 2% ;
+	width: 190px;
+	text-align: center;
+	border-radius: 60px ;
+	border: none;
+}
+.deco{
+	position: absolute;
+	width: 75%;
+	height: 1px;
+	background-color: #B3B3B3;
+	bottom: 127px;
+	right: 51px;
+}
+.deleteWord{
+	color: #D65353;
+	position: relative;
+	top: 79%;
+	left: 28%;
+}
+.trashBox{
+	background-color: black;
+	color: white;
 }
