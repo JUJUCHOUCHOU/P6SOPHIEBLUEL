@@ -335,22 +335,21 @@ footer nav ul{
 	flex-wrap: wrap;
 	justify-content: start;
 	margin-left: 7%;
-	margin-top: -16px;
+	margin-top: -29px;
 }
 .figureBox{
 	width: 17%;
 	padding: 2px;
+	height: 111px;
 }
 .miniImage{
 	width: 100%;
 	height: fit-content;
 }
-.modal__arrowBack{
-	color: black;
-}
+
 .addPhotoButton{
 	position: absolute;
-	top: 78%;
+	top: 83%;
 	left: 25%;
 	font-family: 'Syne';
 	font-weight: 700;
@@ -368,13 +367,13 @@ footer nav ul{
 	width: 75%;
 	height: 1px;
 	background-color: #B3B3B3;
-	bottom: 127px;
+	bottom: 106px;
 	right: 51px;
 }
 .deleteWord{
 	color: #D65353;
 	position: relative;
-	top: 79%;
+	top: 81%;
 	left: 28%;
 }
 .trashBox{
@@ -389,4 +388,29 @@ footer nav ul{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+/*modal adding image css*/
+.arrowBack{
+	position: relative;
+	top: -16px;
+	left: -5px;
+}
+.modalPhotoBox{
+	background-color: #E8F1F6;
+	height: 169px;
+}
+.fa-image{
+	font-size: 40px;
+	color: #B9C5CC;
+	position: absolute;
+	top: 20%;
+	left: 45%;
+}
+.photoBoxButton{
+	position: relative;
+	border: none;
+	padding: 2%;
+	border-radius: 15px;
+	color:#306685;
+	background-color: #CBD6DC;
 }

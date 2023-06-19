@@ -145,6 +145,8 @@ const displayGallery = (works) => {
           console.log('ok');
           // button choose? = event.target
           modalOpen.style.display = "block";
+
+          initModale();
         });
       });
     
