@@ -293,7 +293,8 @@ footer nav ul{
 	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 	z-index: 999;
 }
-.modalContent{
+.modalContent,
+.modalContentPhoto{
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -305,16 +306,25 @@ footer nav ul{
 	border-radius: 0.5rem;
 	z-index: 1000;
 }
-.modalCloseCross{
+.modalCloseCross,
+.modalPhotoCloseCross{
 	position: relative;
-	left: 350px;
-	top: -48px;
 	width: max-content;
 	cursor: pointer;
 	color: black;
 	font-size: 18px;
 }
-.modalTitle{
+.modalCloseCross{
+	left: 350px;
+	top: -48px;
+}
+.modalPhotoCloseCross{
+	left: 346px;
+	top: -1px;
+}
+
+.modalTitle,
+.modalPhotoTitle{
 	text-align: center;
 	font-size: 20px;
 	padding-top: 20px;
@@ -351,6 +361,7 @@ footer nav ul{
 	text-align: center;
 	border-radius: 60px ;
 	border: none;
+	cursor: pointer;
 }
 .deco{
 	position: absolute;
@@ -369,4 +380,13 @@ footer nav ul{
 .trashBox{
 	background-color: black;
 	color: white;
+	width: 17px;
+	height: 17px;
+	position: relative;
+	top: -72px;
+	left: 34px;
+	align-items: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

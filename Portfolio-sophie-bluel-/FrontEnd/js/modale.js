@@ -16,7 +16,6 @@ fetch('http://localhost:5678/api/works')
     const modalCloseCross = document.createElement('p');
     modalCloseCross.classList.add('modalCloseCross');
     modalCloseCross.textContent = "x";
-    //fermeture de ma modale au click et hors modale
 
     function closeModale() {
       modalOpen.style.display = "none";
@@ -27,35 +26,28 @@ fetch('http://localhost:5678/api/works')
         closeModale();
       }
     });
-    // Titre
+
     const modalTitle = document.createElement('p');
     modalTitle.textContent = 'Galerie Photo';
     modalTitle.classList.add('modalTitle');
 
-    //barre
     const decoElement = document.createElement('div');
     decoElement.classList.add('deco');
 
-    // Bouton "Ajouter une photo"
     const addPhotoButton = document.createElement('button');
     addPhotoButton.classList.add('addPhotoButton');
     addPhotoButton.textContent = 'Ajouter une photo';
     modalContent.appendChild(addPhotoButton);
 
-    // Texte "supprimer la galerie"
     const deleteWord = document.createElement('p');
     deleteWord.textContent = "Supprimer la galerie";
     deleteWord.classList.add("deleteWord");
 
-    // Attacher les éléments au parent
     modalOpen.appendChild(modalContent);
     modalContent.appendChild(modalTitle);
     modalContent.appendChild(modalCloseCross);
     modalContent.appendChild(decoElement);
     modalContent.appendChild(deleteWord);
-
-//poubelle sur chaque image
-
 
     const imageForModal = (miniWorks) => {
       const miniGallery = document.createElement('div');
@@ -73,6 +65,14 @@ fetch('http://localhost:5678/api/works')
         figureModale.appendChild(imageModale);
         imageModale.classList.add('miniImage');
 
+        const deleteButton = document.createElement('div');
+        deleteButton.classList.add('trashBox');
+
+        const deleteIcon = document.createElement('i');
+        deleteIcon.classList.add('fa-solid', 'fa-trash-can');
+        deleteButton.appendChild(deleteIcon);
+        figureModale.appendChild(deleteButton);
+
         const textModalFigure = document.createElement('figcaption');
         textModalFigure.textContent = "éditer";
         figureModale.appendChild(textModalFigure);
@@ -84,39 +84,29 @@ fetch('http://localhost:5678/api/works')
     };
 
     imageForModal(works);
+
+    const addPhotoModal = document.createElement('div');
+    addPhotoModal.classList.add('modalContentPhoto');
+    addPhotoModal.style.display = "none"; // Masquer la deuxième modale par défaut
+    
+    const addPhotoModalCloseCross = document.createElement('p');
+    addPhotoModalCloseCross.classList.add('modalPhotoCloseCross');
+    addPhotoModalCloseCross.textContent = "x";
+
+    const modalPhotoTitle = document.createElement('p');
+    modalPhotoTitle.textContent="Ajout Photo";
+    modalPhotoTitle.classList.add('modalPhotoTitle');
+    
+    function changeModale() {
+      modalContent.style.display = "none";
+      addPhotoModal.style.display = "block";
+    }
+    addPhotoButton.addEventListener('click', changeModale);
+
+    modalOpen.appendChild(addPhotoModal);
+    addPhotoModal.appendChild(addPhotoModalCloseCross);
+
   })
   .catch(function (error) {
     console.log(error);
   });
-  //delete gallery
-
-   //requete delete
-
-//event listener bouton ajout photo qui ouvre l'autre modale
-// appel de l'api
-// fonction de suppression
-
-
-
-// requete post
-
-// modale ajout photos
-//formulaire form action method post
-// div bleu
-//icone montagne dans div bleu
-//input type image src
-//bouton + ajout Photo sous icone
-//text JPG, png:4mo max dans cadre bleu
-
-//input type text label for title
-
-//input type text label for category
-
-// appel de l'api
-// fonction d'ajout/verification du format et des éléménts
-// si elements != title && !=categories && format alors affiche message d'erreur
-
-// requete post avec le fetch de maniere dynamique
-
-//close modale
-
