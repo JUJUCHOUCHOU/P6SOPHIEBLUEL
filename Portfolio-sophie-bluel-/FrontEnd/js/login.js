@@ -1,4 +1,4 @@
-const modal = document.getElementById('modal');
+const modale = document.getElementById('modale');
 const login = function (mail, password) {
 
 
