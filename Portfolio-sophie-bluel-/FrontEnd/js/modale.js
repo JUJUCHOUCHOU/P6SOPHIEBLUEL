@@ -1,5 +1,36 @@
+function createElementWithClasses(tagName, classes) {
+  const element = document.createElement(tagName);
+  element.classList.add(...classes);
+  return element;
+  //fonction permettant d'eviter d'ecrire classlist.add a chaque fois
+}
+
+// Fonction pour fermer la modale
+function closeModal() {
+  const modalOpen = document.getElementById('modal');
+  modalOpen.style.display = 'none';
+}
+
+// Fonction pour ouvrir la deuxième modale
+function openSecondModal() {
+  const modalContent = document.querySelector('.modalContent');
+  const addPhotoModal = document.querySelector('.modalContentPhoto');
+
+  modalContent.style.display = 'none';
+  addPhotoModal.style.display = 'block';
+}
+
+// Fonction pour réinitialiser l'état des modales
+function resetModalState() {
+  const modalContent = document.querySelector('.modalContent');
+  const addPhotoModal = document.querySelector('.modalContentPhoto');
+
+  modalContent.style.display = 'block';
+  addPhotoModal.style.display = 'none';
+}
+
 // Appel à l'API
-  fetch('http://localhost:5678/api/works')
+fetch('http://localhost:5678/api/works')
   .then(function (response) {
     if (response.ok) {
       return response.json();
@@ -10,131 +41,93 @@
 
     const modalOpen = document.getElementById('modal');
 
-    const modalContent = document.createElement('div');
-    modalContent.classList.add('modalContent');
+    const modalContent = createElementWithClasses('div', ['modalContent']);
 
-    const modalCloseCross = document.createElement('p');
-    modalCloseCross.classList.add('modalCloseCross');
-    modalCloseCross.textContent = "x";
+    const modalCloseCross = createElementWithClasses('p', ['modalCloseCross']);
+    modalCloseCross.textContent = 'x';
+    modalCloseCross.addEventListener('click', closeModal);
 
-    function closeModale() {
-      modalOpen.style.display = "none";
-    }
-    modalCloseCross.addEventListener('click', closeModale);
-    window.addEventListener('click', function (event) {
-      if (event.target === modalOpen) {
-        closeModale();
-      }
-    });
-
-    const modalTitle = document.createElement('p');
+    const modalTitle = createElementWithClasses('p', ['modalTitle']);
     modalTitle.textContent = 'Galerie Photo';
-    modalTitle.classList.add('modalTitle');
 
-    const decoElement = document.createElement('div');
-    decoElement.classList.add('deco');
+    const decoElement = createElementWithClasses('div', ['deco']);
 
-    const addPhotoButton = document.createElement('button');
-    addPhotoButton.classList.add('addPhotoButton');
+    const addPhotoButton = createElementWithClasses('button', ['addPhotoButton']);
     addPhotoButton.textContent = 'Ajouter une photo';
+    addPhotoButton.addEventListener('click', openSecondModal);
     modalContent.appendChild(addPhotoButton);
 
-    const deleteWord = document.createElement('p');
-    deleteWord.textContent = "Supprimer la galerie";
-    deleteWord.classList.add("deleteWord");
+    const deleteWord = createElementWithClasses('p', ['deleteWord']);
+    deleteWord.textContent = 'Supprimer la galerie';
 
     modalOpen.appendChild(modalContent);
     modalContent.appendChild(modalTitle);
     modalContent.appendChild(modalCloseCross);
     modalContent.appendChild(decoElement);
     modalContent.appendChild(deleteWord);
+    modalContent.appendChild(addPhotoButton);
 
-    const imageForModal = (miniWorks) => {
-      const miniGallery = document.createElement('div');
-      miniGallery.classList.add('miniGallery');
+    const miniGallery = createElementWithClasses('div', ['miniGallery']);
+    modalContent.appendChild(miniGallery);
 
-      miniWorks.forEach(function (miniWork) {
-        const miniImageUrl = miniWork.imageUrl;
-        const miniTitle = miniWork.title;
+    works.forEach(function (miniWork) {
+      const miniImageUrl = miniWork.imageUrl;
+      const miniTitle = miniWork.title;
 
-        const figureModale = document.createElement('figure');
-        figureModale.classList.add('figureBox');
+      const figureModale = createElementWithClasses('figure', ['figureBox']);
 
-        const imageModale = document.createElement('img');
-        imageModale.src = miniImageUrl;
-        figureModale.appendChild(imageModale);
-        imageModale.classList.add('miniImage');
+      const imageModale = document.createElement('img');
+      imageModale.src = miniImageUrl;
+      imageModale.classList.add('miniImage');
+      figureModale.appendChild(imageModale);
 
-        const deleteButton = document.createElement('div');
-        deleteButton.classList.add('trashBox');
+      const deleteButton = createElementWithClasses('div', ['trashBox']);
+      const deleteIcon = createElementWithClasses('i', ['fa-solid', 'fa-trash-can']);
+      deleteButton.appendChild(deleteIcon);
+      figureModale.appendChild(deleteButton);
 
-        const deleteIcon = document.createElement('i');
-        deleteIcon.classList.add('fa-solid', 'fa-trash-can');
-        deleteButton.appendChild(deleteIcon);
-        figureModale.appendChild(deleteButton);
+      const textModaleFigure = createElementWithClasses('figcaption', ['textModaleFigure']);
+      textModaleFigure.textContent = 'éditer';
+      figureModale.appendChild(textModaleFigure);
 
-        const textModaleFigure = document.createElement('figcaption');
-        textModaleFigure.textContent = "éditer";
-        figureModale.appendChild(textModaleFigure);
-        figureModale.classList.add('textModaleFigure');
+      miniGallery.appendChild(figureModale);
+    });
 
-        miniGallery.appendChild(figureModale);
-      });
+    const addPhotoModal = createElementWithClasses('div', ['modalContentPhoto']);
+    addPhotoModal.style.display = 'none';
+    modalOpen.appendChild(addPhotoModal);
 
-      modalContent.appendChild(miniGallery);
-    };
+    const addPhotoModalCloseCross = createElementWithClasses('p', ['modalPhotoCloseCross']);
+    addPhotoModalCloseCross.textContent = 'x';
+    addPhotoModalCloseCross.addEventListener('click', closeModal);
+    addPhotoModal.appendChild(addPhotoModalCloseCross);
 
-    imageForModal(works);
+    const arrowBack = createElementWithClasses('i', ['fa-solid', 'fa-arrow-left', 'arrowBack']);
+    arrowBack.addEventListener('click', resetModalState);
+    addPhotoModal.appendChild(arrowBack);
 
-    const addPhotoModal = document.createElement('div');
-    addPhotoModal.classList.add('modalContentPhoto');
-    addPhotoModal.style.display = "none"; // Masquer la deuxième modale par défaut
-    
-    const addPhotoModalCloseCross = document.createElement('p');
-    addPhotoModalCloseCross.classList.add('modalPhotoCloseCross');
-    addPhotoModalCloseCross.textContent = "x";
+    const modalPhotoTitle = createElementWithClasses('p', ['modalPhotoTitle']);
+    modalPhotoTitle.textContent = 'Ajout Photo';
+    addPhotoModal.appendChild(modalPhotoTitle);
 
-    const arrowBack = document.createElement('i');
-    arrowBack.classList.add('fa-solid', 'fa-arrow-left', 'arrowBack');
-    // fonction et event pour revenir a lautre modale
+    const modalPhotoBox = createElementWithClasses('div', ['modalPhotoBox']);
+    addPhotoModal.appendChild(modalPhotoBox);
 
-    const modalPhotoTitle = document.createElement('p');
-    modalPhotoTitle.textContent="Ajout Photo";
-    modalPhotoTitle.classList.add('modalPhotoTitle');
+    const modalphotoBoxEmpty = createElementWithClasses('div', ['modalphotoBoxEmpty']);
+    modalPhotoBox.appendChild(modalphotoBoxEmpty);
 
-    const modalPhotoBox = document.createElement('div');
-    modalPhotoBox.classList.add('modalPhotoBox');
+    const modalphotoBoxEmptyIcon = createElementWithClasses('i', ['fa-sharp', 'fa-regular', 'fa-image']);
+    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
 
-    const modalphotoBoxEmpty = document.createElement('div');
-    const modalphotoBoxEmptyIcon = document.createElement('i');
-    modalphotoBoxEmptyIcon.classList.add('fa-sharp', 'fa-regular', 'fa-image');
-
-    const modalphotoBoxEmptyButton = document.createElement('button');
-    modalphotoBoxEmptyButton.textContent='+ Ajouter photo';
-    modalphotoBoxEmptyButton.classList.add('photoBoxButton');
+    const modalphotoBoxEmptyButton = createElementWithClasses('button', ['photoBoxButton']);
+    modalphotoBoxEmptyButton.textContent = '+ Ajouter photo';
+    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyButton);
 
     const modalphotoBoxEmptyText = document.createElement('p');
-    
-    function modaleDeleteToModaleEdit() {
-      modalContent.style.display = "none";
-      addPhotoModal.style.display = "block";
-    }
-    addPhotoButton.addEventListener('click', modaleDeleteToModaleEdit);
-
-    //function for change modalPhotoBox with the new pic
-
-    modalOpen.appendChild(addPhotoModal);
-    addPhotoModal.appendChild(addPhotoModalCloseCross);
-    addPhotoModal.appendChild(arrowBack);
-    addPhotoModal.appendChild(modalPhotoTitle);
-    addPhotoModal.appendChild(modalPhotoBox);
-    modalPhotoBox.appendChild(modalphotoBoxEmpty);
-    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
-    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyButton);
     modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyText);
-
+    modalPhotoBox.appendChild(modalphotoBoxEmpty);
   })
   .catch(function (error) {
     console.log(error);
-  });
-
+  })
+ 
