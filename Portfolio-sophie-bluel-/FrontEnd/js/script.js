@@ -137,14 +137,14 @@ const displayGallery = (works) => {
       editorMode.appendChild(textEdition);
     
       // "click" to call modale (differents button)
-      const modalButton = [headerBarButton, idImage, filters, textEdition];
-      const modalOpen = document.getElementById("modal");
+      const modaleButton = [headerBarButton, idImage, filters, textEdition];
+      const modaleOpen = document.getElementById("modal");
     //function selection Button
-      modalButton.forEach(function(button) {
+      modaleButton.forEach(function(button) {
         button.addEventListener('click', function(event) {
           console.log('ok');
           // button choose? = event.target
-          modalOpen.style.display = "block";
+          modaleOpen.style.display = "block";
 
           initModale();
         });
