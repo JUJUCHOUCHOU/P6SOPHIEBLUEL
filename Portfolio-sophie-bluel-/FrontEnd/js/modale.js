@@ -9,6 +9,11 @@ function createElementWithClasses(tagName, classes) {
 function closeModal() {
   const modalOpen = document.getElementById('modal');
   modalOpen.style.display = 'none';
+  window.addEventListener('click', function(event) {
+    if (event.target === modalOpen) {
+      closeModal();
+    }
+  });
 }
 
 // Fonction pour ouvrir la deuxième modale
@@ -93,6 +98,22 @@ fetch('http://localhost:5678/api/works')
       miniGallery.appendChild(figureModale);
     });
 
+    // fonction de suppression des elements de la gallerie
+    function deleteGalleryElements (){
+      const deleteButton = createElementWithClasses('div', ['trashBox']);
+      //appel a l'api pour delete
+      fetch('http://localhost:5678/api/works/', {
+    method: 'DELETE',
+    headers: {
+      'accept':'application/json',
+      'content-type': 'application/json; charset=UTF-8'
+    },
+    body: JSON.stringify({
+      
+    })
+  })
+  }
+//deuxieme modale 
     const addPhotoModal = createElementWithClasses('div', ['modalContentPhoto']);
     addPhotoModal.style.display = 'none';
     modalOpen.appendChild(addPhotoModal);
@@ -115,17 +136,19 @@ fetch('http://localhost:5678/api/works')
 
     const modalphotoBoxEmpty = createElementWithClasses('div', ['modalphotoBoxEmpty']);
     modalPhotoBox.appendChild(modalphotoBoxEmpty);
-
+//icone
     const modalphotoBoxEmptyIcon = createElementWithClasses('i', ['fa-sharp', 'fa-regular', 'fa-image']);
     modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
-
-    const modalphotoBoxEmptyButton = createElementWithClasses('button', ['photoBoxButton']);
+//bouton ajouter photo
+    const modalphotoBoxEmptyButton = createElementWithClasses('button', ['modalPhotoBoxEmptyButton']);
     modalphotoBoxEmptyButton.textContent = '+ Ajouter photo';
     modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyButton);
 
-    const modalphotoBoxEmptyText = document.createElement('p');
+    const modalphotoBoxEmptyText = createElementWithClasses('p', ['modalphotoBoxEmptyText']);
+    modalphotoBoxEmptyText.textContent = 'jpeg, png : 4mo max';
     modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyText);
     modalPhotoBox.appendChild(modalphotoBoxEmpty);
+    
   })
   .catch(function (error) {
     console.log(error);

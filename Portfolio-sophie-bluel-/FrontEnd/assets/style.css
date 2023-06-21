@@ -302,7 +302,7 @@ footer nav ul{
 	background-color: #FFFEF8;
 	padding: 1rem 1.5rem;
 	width: 22rem;
-	height: 30rem;
+	height: 28rem;
 	border-radius: 0.5rem;
 	z-index: 1000;
 }
@@ -374,7 +374,8 @@ footer nav ul{
 	color: #D65353;
 	position: relative;
 	top: 81%;
-	left: 28%;
+	left: 29%;
+	width: fit-content;
 }
 .trashBox{
 	background-color: black;
@@ -388,29 +389,52 @@ footer nav ul{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 /*modal adding image css*/
 .arrowBack{
 	position: relative;
 	top: -16px;
 	left: -5px;
+	cursor: pointer;
 }
-.modalPhotoBox{
+.modalPhotoBox, 
+.modalPhotoBoxEmpty{
 	background-color: #E8F1F6;
-	height: 169px;
+	height: 160px;
+}
+.modalPhotoTitle{
+	margin-bottom: 10px;
 }
 .fa-image{
 	font-size: 40px;
 	color: #B9C5CC;
 	position: absolute;
-	top: 20%;
+	top: 24%;
 	left: 45%;
 }
 .modalPhotoBoxEmptyButton{
 	position: relative;
 	border: none;
-	padding: 2%;
+	padding-left: 6%;
 	border-radius: 15px;
-	color:#306685;
+	color: #306685;
 	background-color: #CBD6DC;
+	top: 85px;
+	left: 109px;
+	padding-right: 6%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+.modalPhotoBoxEmptyText{
+	font-family: 'Work Sans';
+	font-size: 7px;
+	color: #444444;
+	position: relative;
+	top: 97px;
+	left: 142px;
+	width: fit-content;
+}
+.modalPhotoBoxWithPhoto{
+	display: none;
 }
