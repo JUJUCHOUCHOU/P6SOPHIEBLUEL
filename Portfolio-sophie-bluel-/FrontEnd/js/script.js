@@ -143,7 +143,6 @@ const displayGallery = (works) => {
       modalButton.forEach(function(button) {
         button.addEventListener('click', function(event) {
           console.log('ok');
-          // button choose? = event.target
           modalOpen.style.display = "block";
 
         });
