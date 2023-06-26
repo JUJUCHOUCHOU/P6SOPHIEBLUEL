@@ -144,7 +144,11 @@ const displayGallery = (works) => {
         button.addEventListener('click', function(event) {
           console.log('ok');
           modalOpen.style.display = "block";
-
+          window.addEventListener('click', function (event) {
+            if (event.target === modalOpen) {
+              closeModal();
+            }
+          });
         });
       });
     
