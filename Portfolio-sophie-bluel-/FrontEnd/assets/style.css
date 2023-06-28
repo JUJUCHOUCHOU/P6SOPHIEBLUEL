@@ -444,8 +444,16 @@ footer nav ul{
 	left: 137px;
 	width: fit-content;
 }
-.modalPhotoBoxWithPhoto{
-	display: none;
+.backgroundColor{
+	background-color: #E8F1F6;
+	width: 100%;
+	height: 100%;
+}
+.miniImagePreview{
+	object-fit: fill;
+	width: 148px;
+	height: 160px;
+	padding-left: 102px;
 }
 .hidden {
 	display: none;

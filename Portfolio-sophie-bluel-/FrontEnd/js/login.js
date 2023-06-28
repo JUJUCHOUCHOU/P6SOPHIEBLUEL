@@ -1,7 +1,6 @@
 const modale = document.getElementById('modale');
 const login = function (mail, password) {
 
-
   // Appel à l'API avec fetch
   fetch('http://localhost:5678/api/users/login', {
     method: 'POST',
@@ -14,7 +13,6 @@ const login = function (mail, password) {
       password: password
     })
   })
-
     .then(function (response) {
       console.log(response)
       if (response.ok) {
@@ -33,7 +31,6 @@ const login = function (mail, password) {
       alert(error.message);
     });
 }
-
 const formulaire = document.getElementById("formulaire");
 const Button = document.getElementById("sendButton");
 

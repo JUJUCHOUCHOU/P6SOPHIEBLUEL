@@ -2,32 +2,32 @@ function createElementWithClasses(tagName, classes) {
   const element = document.createElement(tagName);
   element.classList.add(...classes);
   return element;
-  //fonction permettant d'éviter d'écrire classList.add à chaque fois
+//fonction permettant d'éviter d'écrire classList.add à chaque fois
 }
-
 // Fonction pour fermer la modale
 function closeModal() {
   const modalOpen = document.getElementById('modal');
   modalOpen.style.display = 'none';
   resetModalState();
-  window.removeEventListener('click',closeModal);
+  window.removeEventListener('click', closeModal);
 }
 // Fonction pour ouvrir la deuxième modale
 function openSecondModal() {
   const modalContent = document.querySelector('.modalContent');
   const addPhotoModal = document.querySelector('.modalContentPhoto');
+  const modalPhotoBoxEmptyForm = document.querySelector('.modalPhotoBoxForm');
 
   modalContent.style.display = 'none';
   addPhotoModal.style.display = 'block';
 }
-
 // Fonction pour réinitialiser l'état des modales
 function resetModalState() {
   const modalContent = document.querySelector('.modalContent');
   const addPhotoModal = document.querySelector('.modalContentPhoto');
-
+  const modalPhotoBoxEmptyForm = document.querySelector('.modalPhotoBoxForm');
   modalContent.style.display = 'block';
   addPhotoModal.style.display = 'none';
+  modalPhotoBoxEmptyForm.reset();
 }
 function createGalleryElement() {
   const token = localStorage.getItem('token');
@@ -37,10 +37,9 @@ function createGalleryElement() {
     headers: {
       'accept': 'application/json',
       'content-type': 'application/json; charset=UTF-8',
-      'authorization':`Bearer ${token}`
+      'authorization': `Bearer ${token}`
     },
     body: JSON.stringify({
-
     })
   })
 }
@@ -124,14 +123,13 @@ fetch('http://localhost:5678/api/works')
         headers: {
           'accept': 'application/json',
           'content-type': 'application/json; charset=UTF-8',
-          'authorization':`Bearer ${token}`
+          'authorization': `Bearer ${token}`
         },
       })
-      .then (()=>{
-        miniGallery.removeChild(figureModale);
-      })
+        .then(() => {
+          miniGallery.removeChild(figureModale);
+        })
     }
-
     // Deuxième modale
     const addPhotoModal = createElementWithClasses('div', ['modalContentPhoto']);
     addPhotoModal.style.display = 'none';
@@ -209,40 +207,45 @@ fetch('http://localhost:5678/api/works')
     // Cacher le bouton de parcourir par défaut
     imageInput.style.display = 'none';
 
-    // Afficher l'image miniature sélectionnée
-    imageInput.addEventListener('change', function (event) {
-      event.preventDefault();
-      const file = event.target.files[0];
-      const reader = new FileReader();
+// Afficher l'image miniature sélectionnée
+imageInput.addEventListener('change', function (event) {
+  event.preventDefault();
+  const file = event.target.files[0];
+  const reader = new FileReader();
 
-      reader.onload = function (event) {
-        const imageUrl = event.target.result;
-        modalPhotoBox.style.backgroundImage = `url(${imageUrl})`;
-        modalPhotoBox.style.width ="40%";
-        modalphotoBoxEmptyText.display ='none';
-        modalphotoBoxEmptyIcon.display ='none';
-        modalphotoBoxEmptyButton.display ='none';
-        addButton.textContent = ''; // Supprimer le texte du bouton
-      };
-console.log(reader);
-      reader.readAsDataURL(file);
-    });
+  reader.onload = function (event) {
+    const imageUrl = event.target.result;
 
-    // Créer le bouton "+ Ajouter photo"
-    const addButton = createElementWithClasses('button', ['modalPhotoBoxEmptyButton']);
-    addButton.textContent = '+ Ajouter photo';
-    modalPhotoBoxEmptyForm.appendChild(addButton);
+    const backgroundDiv = createElementWithClasses('div', ['backgroundColor']);
+    const imageModale = document.createElement('img');
+    imageModale.src = imageUrl;
+    imageModale.classList.add('miniImagePreview');
 
-    // Lorsque le bouton "+ Ajouter photo" est cliqué, déclencher le clic du bouton de parcourir
-    addButton.addEventListener('click', function (event) {
-      event.preventDefault();
-      imageInput.click();
-    });
+    backgroundDiv.appendChild(imageModale);
 
-    const imagePreview = createElementWithClasses('img', ['modalPhotoPreview']);
-    modalPhotoBoxEmptyForm.appendChild(imagePreview);
+    // Ajouter la div au modalPhotoBox
+    modalPhotoBox.innerHTML = ''; // Supprimer les éléments précédents
+    modalPhotoBox.appendChild(backgroundDiv);
 
-    
+    // Masquer le bouton "+ Ajouter photo"
+    addButton.style.display = 'none';
+  };
+
+  console.log(reader);
+  reader.readAsDataURL(file);
+});
+
+// Créer le bouton "+ Ajouter photo"
+const addButton = createElementWithClasses('button', ['modalPhotoBoxEmptyButton']);
+addButton.textContent = '+ Ajouter photo';
+modalPhotoBoxEmptyForm.appendChild(addButton);
+
+// Lorsque le bouton "+ Ajouter photo" est cliqué
+addButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  imageInput.click();
+});
+
     // Création de l'élément de décoration
     const decoElementModalePhoto = createElementWithClasses('div', ['decoElementModalePhoto']);
     modalContentPhoto.appendChild(decoElementModalePhoto);
@@ -255,40 +258,47 @@ console.log(reader);
     // Ajout du bouton au formulaire
     modalPhotoBoxEmptyForm.appendChild(submitButton);
 
-    // Récupérer les valeurs du formulaire
-    const formData = new FormData(modalPhotoBoxEmptyForm);
-    const title = formData.get('title');
-    const category = formData.get('category');
-    const imageFile = formData.get('image');
+    // Ajoutez un écouteur d'événements au clic sur le bouton
+    submitButton.addEventListener('click', function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut du bouton de soumission
 
-    const apiUrl = 'http://localhost:5678/api/works';
+      // Récupérer les valeurs du formulaire
+      const formData = new FormData(modalPhotoBoxEmptyForm);
+      const title = formData.get('title');
+      const category = formData.get('category');
+      const imageFile = formData.get('image');
 
-    // Préparer les données à envoyer
-    const requestData = new FormData();
-    requestData.append('title', title);
-    requestData.append('category', category);
-    requestData.append('image', imageFile);
+      // Préparer les données à envoyer
+      const requestData = new FormData();
+      requestData.append('title', title);
+      requestData.append('category', category);
+      requestData.append('image', imageFile);
 
-    // Envoyer la requête POST à l'API pour enregistrer les données
-    fetch(apiUrl, {
-      method: 'POST',
-      body: requestData
-    })
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Erreur lors de l\'enregistrement des données');
-        }
+      // Envoyer la requête POST à l'API pour enregistrer les données
+      fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json; charset=UTF-8',
+          'authorization': `Bearer ${token}`
+        },
+        body: requestData
       })
-      .then(function (data) {
-        console.log('Données enregistrées avec succès:', data);
+        .then(function (response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Erreur lors de l\'enregistrement des données');
+          }
+        })
+        .then(function (data) {
+          console.log('Données enregistrées avec succès:', data);
 
-        // Réinitialiser le formulaire après l'enregistrement des données
-        modalPhotoBoxEmptyForm.reset();
-      })
-      .catch(function (error) {
-        console.error('Erreur:', error);
-      });
-  });
-  
+          // Réinitialiser le formulaire après l'enregistrement des données
+          modalPhotoBoxEmptyForm.reset();
+        })
+        .catch(function (error) {
+          console.error('Erreur:', error);
+        });
+    });
+  })
