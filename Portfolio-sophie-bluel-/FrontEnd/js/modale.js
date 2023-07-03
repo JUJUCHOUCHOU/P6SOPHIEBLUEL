@@ -131,81 +131,82 @@ fetch('http://localhost:5678/api/works')
         })
     }
     // Deuxième modale
-    const addPhotoModal = createElementWithClasses('div', ['modalContentPhoto']);
-    addPhotoModal.style.display = 'none';
-    modalOpen.appendChild(addPhotoModal);
+const addPhotoModal = createElementWithClasses('div', ['modalContentPhoto']);
+addPhotoModal.style.display = 'none';
+modalOpen.appendChild(addPhotoModal);
 
-    const addPhotoModalCloseCross = createElementWithClasses('p', ['modalPhotoCloseCross']);
-    addPhotoModalCloseCross.textContent = 'x';
-    addPhotoModalCloseCross.addEventListener('click', closeModal);
-    addPhotoModal.appendChild(addPhotoModalCloseCross);
+const addPhotoModalCloseCross = createElementWithClasses('p', ['modalPhotoCloseCross']);
+addPhotoModalCloseCross.textContent = 'x';
+addPhotoModalCloseCross.addEventListener('click', closeModal);
+addPhotoModal.appendChild(addPhotoModalCloseCross);
 
-    const arrowBack = createElementWithClasses('i', ['fa-solid', 'fa-arrow-left', 'arrowBack']);
-    arrowBack.addEventListener('click', resetModalState);
-    addPhotoModal.appendChild(arrowBack);
+const arrowBack = createElementWithClasses('i', ['fa-solid', 'fa-arrow-left', 'arrowBack']);
+arrowBack.addEventListener('click', resetModalState);
+addPhotoModal.appendChild(arrowBack);
 
-    const modalPhotoTitle = createElementWithClasses('p', ['modalPhotoTitle']);
-    modalPhotoTitle.textContent = 'Ajout Photo';
-    addPhotoModal.appendChild(modalPhotoTitle);
+const modalPhotoTitle = createElementWithClasses('p', ['modalPhotoTitle']);
+modalPhotoTitle.textContent = 'Ajout Photo';
+addPhotoModal.appendChild(modalPhotoTitle);
 
-    const modalContentPhoto = createElementWithClasses('div', ['modalContentPhoto']);
-    addPhotoModal.appendChild(modalContentPhoto);
+const modalContentPhoto = createElementWithClasses('div', ['modalContentPhoto']);
+addPhotoModal.appendChild(modalContentPhoto);
 
-    const modalPhotoBox = createElementWithClasses('div', ['modalPhotoBox']);
-    modalContentPhoto.appendChild(modalPhotoBox);
+const modalPhotoBox = createElementWithClasses('div', ['modalPhotoBox']);
+modalContentPhoto.appendChild(modalPhotoBox);
 
-    const modalphotoBoxEmpty = createElementWithClasses('div', ['modalphotoBoxEmpty']);
-    modalPhotoBox.appendChild(modalphotoBoxEmpty);
-    // Icône
-    const modalphotoBoxEmptyIcon = createElementWithClasses('i', ['fa-sharp', 'fa-regular', 'fa-image']);
-    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
-    // Texte informatif
-    const modalphotoBoxEmptyText = createElementWithClasses('p', ['modalPhotoBoxEmptyText']);
-    modalphotoBoxEmptyText.textContent = 'jpeg, png : 4mo max';
-    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyText);
+const modalphotoBoxEmpty = createElementWithClasses('div', ['modalphotoBoxEmpty']);
+modalPhotoBox.appendChild(modalphotoBoxEmpty);
+// Icône
+const modalphotoBoxEmptyIcon = createElementWithClasses('i', ['fa-sharp', 'fa-regular', 'fa-image']);
+modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
+// Texte informatif
+const modalphotoBoxEmptyText = createElementWithClasses('p', ['modalPhotoBoxEmptyText']);
+modalphotoBoxEmptyText.textContent = 'jpeg, png : 4mo max';
+modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyText);
 
-    const modalPhotoBoxEmptyForm = createElementWithClasses('form', ['modalPhotoBoxForm']);
-    modalContentPhoto.appendChild(modalPhotoBoxEmptyForm);
+const modalPhotoBoxEmptyForm = createElementWithClasses('form', ['modalPhotoBoxForm']);
+modalContentPhoto.appendChild(modalPhotoBoxEmptyForm);
 
-    const titleLabel = createElementWithClasses('label', ['modalPhotoBoxLabel']);
-    titleLabel.textContent = 'Titre:';
-    modalPhotoBoxEmptyForm.appendChild(titleLabel);
+const titleLabel = createElementWithClasses('label', ['modalPhotoBoxLabel']);
+titleLabel.textContent = 'Titre:';
+modalPhotoBoxEmptyForm.appendChild(titleLabel);
 
-    const titleInput = createElementWithClasses('input', ['modalPhotoBoxInput']);
-    titleInput.setAttribute('type', 'text');
-    titleInput.setAttribute('name', 'title');
-    modalPhotoBoxEmptyForm.appendChild(titleInput);
+const titleInput = createElementWithClasses('input', ['modalPhotoBoxInput']);
+titleInput.setAttribute('type', 'text');
+titleInput.setAttribute('name', 'title');
+modalPhotoBoxEmptyForm.appendChild(titleInput);
 
-    const categoryLabel = createElementWithClasses('label', ['modalPhotoBoxLabel']);
-    categoryLabel.textContent = 'Catégorie:';
-    modalPhotoBoxEmptyForm.appendChild(categoryLabel);
+const categoryLabel = createElementWithClasses('label', ['modalPhotoBoxLabel']);
+categoryLabel.textContent = 'Catégorie:';
+modalPhotoBoxEmptyForm.appendChild(categoryLabel);
 
-    const categorySelect = createElementWithClasses('select', ['modalPhotoBoxSelect']);
-    categorySelect.setAttribute('name', 'category');
-    modalPhotoBoxEmptyForm.appendChild(categorySelect);
+const categorySelect = createElementWithClasses('select', ['modalPhotoBoxSelect']);
+categorySelect.setAttribute('name', 'category');
+modalPhotoBoxEmptyForm.appendChild(categorySelect);
 
-    // Options de catégories
-    const categories = ['Objet', 'Appartements', 'Hôtel et Restaurant'];
+// Options de catégories
+const categories = ['Objet', 'Appartements', 'Hôtel et Restaurant'];
 
-    // le select doit etre vide a l'etat initial et afficher les options apres
-    const emptyOption = document.createElement('option');
-    emptyOption.value = '';
-    categorySelect.appendChild(emptyOption);
+// le select doit etre vide a l'etat initial et afficher les options apres
+const emptyOption = document.createElement('option');
+emptyOption.value = '';
+categorySelect.appendChild(emptyOption);
 
-    // Ajouter les options de catégories
-    categories.forEach(function (category) {
-      const option = document.createElement('option');
-      option.value = category.toLowerCase();
-      option.textContent = category;
-      categorySelect.appendChild(option);
-    });
-    const imageInput = createElementWithClasses('input', ['modalPhotoBoxInput']);
-    imageInput.setAttribute('type', 'file');
-    imageInput.setAttribute('name', 'image');
-    modalPhotoBoxEmptyForm.appendChild(imageInput);
+// Ajouter les options de catégories
+categories.forEach(function (category) {
+  const option = document.createElement('option');
+  option.value = category.toLowerCase();
+  option.textContent = category;
+  categorySelect.appendChild(option);
+});
 
-    // Cacher le bouton de parcourir par défaut
-    imageInput.style.display = 'none';
+const imageInput = createElementWithClasses('input', ['modalPhotoBoxInput']);
+imageInput.setAttribute('type', 'file');
+imageInput.setAttribute('name', 'image');
+modalPhotoBoxEmptyForm.appendChild(imageInput);
+
+// Cacher le bouton de parcourir par défaut
+imageInput.style.display = 'none';
 
 // Afficher l'image miniature sélectionnée
 imageInput.addEventListener('change', function (event) {
@@ -231,7 +232,6 @@ imageInput.addEventListener('change', function (event) {
     addButton.style.display = 'none';
   };
 
-  console.log(reader);
   reader.readAsDataURL(file);
 });
 
@@ -246,59 +246,81 @@ addButton.addEventListener('click', function (event) {
   imageInput.click();
 });
 
-    // Création de l'élément de décoration
-    const decoElementModalePhoto = createElementWithClasses('div', ['decoElementModalePhoto']);
-    modalContentPhoto.appendChild(decoElementModalePhoto);
+// Création de l'élément de décoration
+const decoElementModalePhoto = createElementWithClasses('div', ['decoElementModalePhoto']);
+modalContentPhoto.appendChild(decoElementModalePhoto);
 
-    // Création du bouton de soumission
-    const submitButton = createElementWithClasses('button', ['validateButton']);
-    submitButton.textContent = 'Valider';
-    submitButton.type = 'submit';
+// Création du bouton de soumission
+const submitButton = createElementWithClasses('button', ['validateButton']);
+submitButton.textContent = 'Valider';
+submitButton.type = 'submit';
 
-    // Ajout du bouton au formulaire
-    modalPhotoBoxEmptyForm.appendChild(submitButton);
+// Ajout du bouton au formulaire
+modalPhotoBoxEmptyForm.appendChild(submitButton);
 
-    // Ajoutez un écouteur d'événements au clic sur le bouton
-    submitButton.addEventListener('click', function (event) {
-      event.preventDefault(); // Empêche le comportement par défaut du bouton de soumission
+function sendNewGalleryElement(event) {
+  event.preventDefault(); // Empêche le comportement par défaut du bouton de soumission
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId'); // Récupérer l'ID de l'utilisateur à partir du localStorage
+  
+  // Préparer les données à envoyer
+  const requestData = {
+    title: titleInput.value,
+    imageUrl: imageFileUrl, // Remplacez imageFileUrl par l'URL de l'image que vous avez téléchargée
+    categoryId: categorySelect.value,
+    userId: userId
+  };
 
-      // Récupérer les valeurs du formulaire
-      const formData = new FormData(modalPhotoBoxEmptyForm);
-      const title = formData.get('title');
-      const category = formData.get('category');
-      const imageFile = formData.get('image');
+  // Envoyer la requête POST à l'API pour enregistrer les données
+  fetch(`http://localhost:5678/api/works/${userId}`, {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'content-type': 'application/json; charset=UTF-8',
+      'authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(requestData)
+  })
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Erreur lors de l\'enregistrement des données');
+      }
+    })
+    .then(function (data) {
+      console.log('Données enregistrées avec succès:', data);
 
-      // Préparer les données à envoyer
-      const requestData = new FormData();
-      requestData.append('title', title);
-      requestData.append('category', category);
-      requestData.append('image', imageFile);
-
-      // Envoyer la requête POST à l'API pour enregistrer les données
-      fetch('http://localhost:5678/api/works', {
-        method: 'POST',
-        headers: {
-          'accept': 'application/json',
-          'content-type': 'application/json; charset=UTF-8',
-          'authorization': `Bearer ${token}`
-        },
-        body: requestData
-      })
-        .then(function (response) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Erreur lors de l\'enregistrement des données');
-          }
-        })
-        .then(function (data) {
-          console.log('Données enregistrées avec succès:', data);
-
-          // Réinitialiser le formulaire après l'enregistrement des données
-          modalPhotoBoxEmptyForm.reset();
-        })
-        .catch(function (error) {
-          console.error('Erreur:', error);
-        });
+      // Réinitialiser le formulaire après l'enregistrement des données
+      modalPhotoBoxEmptyForm.reset();
+    })
+    .catch(function (error) {
+      console.error('Erreur:', error);
     });
+}
+
+submitButton.addEventListener('click', sendNewGalleryElement);
+
+function updateSubmitButton() {
+  if (titleInput.value.trim() !== '' && categorySelect.value !== '' && imageInput.files.length > 0) {
+    submitButton.disabled = false;
+    submitButton.classList.add('valid');
+  } else {
+    submitButton.disabled = true;
+    submitButton.classList.remove('valid');
+  }
+}
+
+imageInput.addEventListener('change', function (event) {
+
+  updateSubmitButton();
+});
+
+titleInput.addEventListener('input', function () {
+  updateSubmitButton();
+});
+
+categorySelect.addEventListener('input', function () {
+  updateSubmitButton();
+});
   })
