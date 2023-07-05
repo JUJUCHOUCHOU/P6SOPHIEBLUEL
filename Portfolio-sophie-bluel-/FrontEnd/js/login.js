@@ -26,6 +26,7 @@ const login = function (mail, password) {
       window.location = "index.html";
       localStorage.clear();
       localStorage.setItem('token', identification.token);
+      localStorage.setItem('userId', identification.userId);
     })
     .catch(function (error) {
       alert(error.message);

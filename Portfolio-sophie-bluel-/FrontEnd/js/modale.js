@@ -1,3 +1,5 @@
+const categories=[]
+
 function createElementWithClasses(tagName, classes) {
   const element = document.createElement(tagName);
   element.classList.add(...classes);
@@ -54,7 +56,6 @@ fetch('http://localhost:5678/api/works')
     console.log(works);
 
     const modalOpen = document.getElementById('modal');
-
     const modalContent = createElementWithClasses('div', ['modalContent']);
 
     const modalCloseCross = createElementWithClasses('p', ['modalCloseCross']);
@@ -84,7 +85,8 @@ fetch('http://localhost:5678/api/works')
     const miniGallery = createElementWithClasses('div', ['miniGallery']);
     modalContent.appendChild(miniGallery);
 
-    works.forEach(function (miniWork) {
+    works.forEach(function (miniWork) {// boucle sur les elements des categories
+      categories.push(miniWork.category);//recuperer categories avec id et nom pour mettre dans le nom en haut(tab)
       const miniImageUrl = miniWork.imageUrl;
       const miniTitle = miniWork.title;
       const imageId = miniWork.id;
@@ -184,21 +186,21 @@ const categorySelect = createElementWithClasses('select', ['modalPhotoBoxSelect'
 categorySelect.setAttribute('name', 'category');
 modalPhotoBoxEmptyForm.appendChild(categorySelect);
 
-// Options de catégories
-const categories = ['Objet', 'Appartements', 'Hôtel et Restaurant'];
+// Récupérer les catégories distinctes
+const distinctCategories = [...new Set(categories.map(category => category.name))];
+
+// Ajouter les options de catégories
+distinctCategories.forEach(function (category) {
+  const option = document.createElement('option');
+  option.value = category;
+  option.textContent = category;
+  categorySelect.appendChild(option);
+});
 
 // le select doit etre vide a l'etat initial et afficher les options apres
 const emptyOption = document.createElement('option');
 emptyOption.value = '';
 categorySelect.appendChild(emptyOption);
-
-// Ajouter les options de catégories
-categories.forEach(function (category) {
-  const option = document.createElement('option');
-  option.value = category.toLowerCase();
-  option.textContent = category;
-  categorySelect.appendChild(option);
-});
 
 const imageInput = createElementWithClasses('input', ['modalPhotoBoxInput']);
 imageInput.setAttribute('type', 'file');
@@ -217,16 +219,18 @@ imageInput.addEventListener('change', function (event) {
   reader.onload = function (event) {
     const imageUrl = event.target.result;
 
-    const backgroundDiv = createElementWithClasses('div', ['backgroundColor']);
     const imageModale = document.createElement('img');
     imageModale.src = imageUrl;
     imageModale.classList.add('miniImagePreview');
 
+    backgroundDiv.innerHTML = ''; // Supprimer les éléments précédents
     backgroundDiv.appendChild(imageModale);
 
-    // Ajouter la div au modalPhotoBox
-    modalPhotoBox.innerHTML = ''; // Supprimer les éléments précédents
-    modalPhotoBox.appendChild(backgroundDiv);
+    // Créer un Blob à partir de l'image sélectionnée
+    const blobImage = dataURItoBlob(imageUrl);
+
+    // Ajouter le Blob à la FormData
+    requestData.append('image', blobImage);
 
     // Masquer le bouton "+ Ajouter photo"
     addButton.style.display = 'none';
@@ -234,7 +238,6 @@ imageInput.addEventListener('change', function (event) {
 
   reader.readAsDataURL(file);
 });
-
 // Créer le bouton "+ Ajouter photo"
 const addButton = createElementWithClasses('button', ['modalPhotoBoxEmptyButton']);
 addButton.textContent = '+ Ajouter photo';
@@ -261,25 +264,20 @@ modalPhotoBoxEmptyForm.appendChild(submitButton);
 function sendNewGalleryElement(event) {
   event.preventDefault(); // Empêche le comportement par défaut du bouton de soumission
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId'); // Récupérer l'ID de l'utilisateur à partir du localStorage
-  
   // Préparer les données à envoyer
-  const requestData = {
-    title: titleInput.value,
-    imageUrl: imageFileUrl, // Remplacez imageFileUrl par l'URL de l'image que vous avez téléchargée
-    categoryId: categorySelect.value,
-    userId: userId
-  };
-
+  const requestData = new FormData()
+  requestData.append('title', titleInput.value);
+  requestData.append('image', imageInput.files[0]);
+  requestData.append('category', parseInt(categorySelect.value));
+ 
   // Envoyer la requête POST à l'API pour enregistrer les données
-  fetch(`http://localhost:5678/api/works/${userId}`, {
+  fetch('http://localhost:5678/api/works', {
     method: 'POST',
     headers: {
-      'accept': 'application/json',
-      'content-type': 'application/json; charset=UTF-8',
+      'accept':'multipart/form-data',
       'authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(requestData)
+    body: requestData
   })
     .then(function (response) {
       if (response.ok) {
@@ -301,7 +299,7 @@ function sendNewGalleryElement(event) {
 
 submitButton.addEventListener('click', sendNewGalleryElement);
 
-function updateSubmitButton() {
+/*function updateSubmitButton() {
   if (titleInput.value.trim() !== '' && categorySelect.value !== '' && imageInput.files.length > 0) {
     submitButton.disabled = false;
     submitButton.classList.add('valid');
@@ -322,5 +320,5 @@ titleInput.addEventListener('input', function () {
 
 categorySelect.addEventListener('input', function () {
   updateSubmitButton();
-});
+});*/
   })
