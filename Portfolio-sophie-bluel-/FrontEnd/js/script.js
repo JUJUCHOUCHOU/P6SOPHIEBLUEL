@@ -35,48 +35,51 @@ const handleFilterWorks = (event, works) => {
   }
   displayGallery(filteredWorks);
 }
-// call to the api
+function init(){
+  // call to the api
 fetch('http://localhost:5678/api/works')
-  .then(function (response) {
-    if (response.ok) {
-      return response.json();
-    }
+.then(function (response) {
+  if (response.ok) {
+    return response.json();
+  }
+})
+.then(function (works) {
+  console.log(works)
+  // regroupe doublons du tableau
+  const categories = new Set();
+  displayGallery(works);
+  // chaque element ajouté au set des categories, collecte les categories
+  works.forEach(function (work) {
+    categories.add(work.category.name);
   })
-  .then(function (works) {
-    console.log(works)
-    // regroupe doublons du tableau
-    const categories = new Set();
-    displayGallery(works);
-    // chaque element ajouté au set des categories, collecte les categories
-    works.forEach(function (work) {
-      categories.add(work.category.name);
-    })
-    // identification ok editor mode on the index page
-    const token = localStorage.getItem('token');
-    console.log('ok', token);
-    if (!token) {
-      // create button for elements of gallery 
-      const filterBar = document.querySelector('.filterBar');
-      Array.from(categories).forEach(category => {
-        const categoryElement = document.createElement('div');
-        categoryElement.classList.add("filterBarButton");
-        categoryElement.textContent = category;
+  // identification ok editor mode on the index page
+  const token = localStorage.getItem('token');
+  console.log('ok', token);
+  if (!token) {
+    // create button for elements of gallery 
+    const filterBar = document.querySelector('.filterBar');
+    Array.from(categories).forEach(category => {
+      const categoryElement = document.createElement('div');
+      categoryElement.classList.add("filterBarButton");
+      categoryElement.textContent = category;
 
-        categoryElement.addEventListener('click', (event) => handleFilterWorks(event, works))
+      categoryElement.addEventListener('click', (event) => handleFilterWorks(event, works))
 
-        filterBar.appendChild(categoryElement);
-      });
-      const filterButtonAll = document.getElementById('filterButtonAll');
-      filterButtonAll.addEventListener('click', (event) => handleFilterWorks(event, works))
-    } else {
-      const filterButtonAll = document.getElementById('filterButtonAll');
-      filterButtonAll.style.display = "none";
-    }
-  })
+      filterBar.appendChild(categoryElement);
+    });
+    const filterButtonAll = document.getElementById('filterButtonAll');
+    filterButtonAll.addEventListener('click', (event) => handleFilterWorks(event, works))
+  } else {
+    const filterButtonAll = document.getElementById('filterButtonAll');
+    filterButtonAll.style.display = "none";
+  }
+})
 
-  .catch(function (error) {
+.catch(function (error) {
 
-  });
+});
+}
+init();
 // identification ok editor mode on the index page
 const token = localStorage.getItem('token');
 if (token) {

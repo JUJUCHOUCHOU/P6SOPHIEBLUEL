@@ -1,4 +1,61 @@
-const categories = []
+function getWorks(){
+  return fetch('http://localhost:5678/api/works')
+  .then(function (response) {
+    if (response.ok) {
+      return response.json();
+    }
+  })
+}
+ // Fonction de suppression des éléments de la galerie
+ function deleteGalleryElement(imageId, figureModale,miniGallery) {
+  const deleteButton = createElementWithClasses('div', ['trashBox']);
+  const token = localStorage.getItem('token');
+  // Appel à l'API pour delete
+  fetch(`http://localhost:5678/api/works/${imageId}`, {
+    method: 'DELETE',
+    headers: {
+      'accept': 'application/json',
+      'content-type': 'application/json; charset=UTF-8',
+      'authorization': `Bearer ${token}`
+    },
+  })
+    .then(() => {
+      miniGallery.removeChild(figureModale);
+      init();
+    })
+}
+function displayMiniGallery(works){
+  const miniGallery =document.getElementsByClassName('miniGallery')[0];
+  works.forEach(function (miniWork) {// boucle sur les elements des categories
+    categories.push(miniWork.category);//recuperer categories avec id et nom pour mettre dans le nom en haut(tab)
+    const miniImageUrl = miniWork.imageUrl;
+    const miniTitle = miniWork.title;
+    const imageId = miniWork.id;
+
+    const figureModale = createElementWithClasses('figure', ['figureBox']);
+
+    const imageModale = document.createElement('img');
+    imageModale.src = miniImageUrl;
+    imageModale.classList.add('miniImage');
+    figureModale.appendChild(imageModale);
+
+    const deleteButton = createElementWithClasses('div', ['trashBox']);
+    const deleteIcon = createElementWithClasses('i', ['fa-solid', 'fa-trash-can']);
+    deleteButton.appendChild(deleteIcon);
+    figureModale.appendChild(deleteButton);
+
+    const textModaleFigure = createElementWithClasses('figcaption', ['textModaleFigure']);
+    textModaleFigure.textContent = 'éditer';
+    figureModale.appendChild(textModaleFigure);
+
+    miniGallery.appendChild(figureModale);
+
+    // Ajout d'un gestionnaire d'événements pour la suppression d'un élément
+    deleteButton.addEventListener('click', function () {
+      deleteGalleryElement(imageId, figureModale,miniGallery);
+    });
+  });
+}
 
 function createElementWithClasses(tagName, classes) {
   const element = document.createElement(tagName);
@@ -111,27 +168,11 @@ fetch('http://localhost:5678/api/works')
 
       // Ajout d'un gestionnaire d'événements pour la suppression d'un élément
       deleteButton.addEventListener('click', function () {
-        deleteGalleryElement(imageId, figureModale);
+        deleteGalleryElement(imageId, figureModale,miniGallery);
       });
     });
 
-    // Fonction de suppression des éléments de la galerie
-    function deleteGalleryElement(imageId, figureModale) {
-      const deleteButton = createElementWithClasses('div', ['trashBox']);
-      const token = localStorage.getItem('token');
-      // Appel à l'API pour delete
-      fetch(`http://localhost:5678/api/works/${imageId}`, {
-        method: 'DELETE',
-        headers: {
-          'accept': 'application/json',
-          'content-type': 'application/json; charset=UTF-8',
-          'authorization': `Bearer ${token}`
-        },
-      })
-        .then(() => {
-          miniGallery.removeChild(figureModale);
-        })
-    }
+   
     // Deuxième modale
     const addPhotoModal = createElementWithClasses('div', ['modalContentPhoto']);
     addPhotoModal.style.display = 'none';
@@ -303,6 +344,8 @@ fetch('http://localhost:5678/api/works')
           closeModal();
           // Réinitialiser le formulaire après l'enregistrement des données
           modalPhotoBoxEmptyForm.reset();
+          init();
+
         })
         .catch(function (error) {
           alert('Merci de remplir tous les Champs');
