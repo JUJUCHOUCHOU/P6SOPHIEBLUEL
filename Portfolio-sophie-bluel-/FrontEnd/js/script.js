@@ -35,7 +35,7 @@ const handleFilterWorks = (event, works) => {
   }
   displayGallery(filteredWorks);
 }
-function init(){
+function init(){// to init the elements call by API (img, text...)
   // call to the api
 fetch('http://localhost:5678/api/works')
 .then(function (response) {
@@ -45,10 +45,10 @@ fetch('http://localhost:5678/api/works')
 })
 .then(function (works) {
   console.log(works)
-  // regroupe doublons du tableau
+  //remove duplicate of array
   const categories = new Set();
   displayGallery(works);
-  // chaque element ajouté au set des categories, collecte les categories
+  //each element add to set of categories, collect categories
   works.forEach(function (work) {
     categories.add(work.category.name);
   })
@@ -147,9 +147,15 @@ if (token) {
     button.addEventListener('click', function (event) {
       console.log('ok');
       modalOpen.style.display = "block";
+      getWorks()//
+      .then(function(works){
+        displayMiniGallery(works);
+      })
+
       window.addEventListener('click', function (event) {
         if (event.target === modalOpen) {
           closeModal();
+          //listen click on modal, if click out modale is close 
         }
       });
     });
