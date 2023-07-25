@@ -14,7 +14,6 @@ const login = function (mail, password) {
     })
   })
     .then(function (response) {
-      console.log(response)
       // check if response is OK (200)
       if (response.ok) {
         // send data of response JSON
@@ -25,7 +24,6 @@ const login = function (mail, password) {
       }
     })
     .then(function (identification) {
-      console.log(identification);
       window.location = "index.html";
       //delete data 
       localStorage.clear();

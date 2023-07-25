@@ -44,7 +44,6 @@ fetch('http://localhost:5678/api/works')
   }
 })
 .then(function (works) {
-  console.log(works)
   //remove duplicate of array
   const categories = new Set();
   displayGallery(works);
@@ -54,7 +53,6 @@ fetch('http://localhost:5678/api/works')
   })
   // identification ok editor mode on the index page
   const token = localStorage.getItem('token');
-  console.log('ok', token);
   if (!token) {
     // create button for elements of gallery 
     const filterBar = document.querySelector('.filterBar');

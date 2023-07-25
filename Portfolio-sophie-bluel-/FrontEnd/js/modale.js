@@ -250,7 +250,7 @@ fetch('http://localhost:5678/api/works')
 
         const backgroundDiv = createElementWithClasses('div', ['backgroundColor']);
         const imageModale = document.createElement('img');
-        imageModale.src = imageUrl;
+        imageModale.src = imageUrl;// insert image 
         imageModale.classList.add('miniImagePreview');
 
         backgroundDiv.appendChild(imageModale);
@@ -263,7 +263,7 @@ fetch('http://localhost:5678/api/works')
         addButton.style.display = 'none';
       };
 
-      reader.readAsDataURL(file);//get url of image (base64) for <img>
+      reader.readAsDataURL(file);//transform url of image (base64) to <img>
     });
 
     // Create button "+ Ajouter photo"
@@ -315,10 +315,10 @@ fetch('http://localhost:5678/api/works')
           }
         })
         .then(function (data) {
-          console.log('Données enregistrées avec succès:', data);
           closeModal();
           // form to zero after sending 
-          modalPhotoBoxEmptyForm.reset();
+          modalPhotoBox.innerHTML = '';
+          addButton.style.display = 'block';
           init();
 
         })
