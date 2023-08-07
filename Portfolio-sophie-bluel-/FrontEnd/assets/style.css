@@ -202,10 +202,15 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 }
-
+#authentification input{
+	height: 45px;
+    margin-bottom: 20px;
+}
+#contact input{
+	height: 50px;
+}
 #contact input, 
 #authentification input{
-	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -335,6 +340,9 @@ footer nav ul{
 	font-size: 20px;
 	padding-top: 20px;
 }
+.modalTitle{
+	margin-bottom: 10px;
+}
 .miniGallery{
 	display: flex;
 	flex-direction: row;
@@ -374,7 +382,7 @@ footer nav ul{
 	width: 75%;
 	height: 1px;
 	background-color: #B3B3B3;
-	bottom: 106px;
+	bottom: 97px;
 	right: 51px;
 }
 .deleteWord{
@@ -440,7 +448,7 @@ footer nav ul{
 	font-size: 7px;
 	color: #444444;
 	position: relative;
-	top: 122px;
+	top: 127px;
 	left: 137px;
 	width: fit-content;
 }
@@ -475,6 +483,9 @@ footer nav ul{
 	height: 35px;
 	background-color: white;
 }
+.modalPhotoBoxLabel{
+	padding-bottom: 7px;
+}
 .validateButton{
 	margin-left: 131px;
 	border: none;
@@ -486,7 +497,7 @@ footer nav ul{
 	padding-top: 2%;
 	padding-bottom: 2%;
 	width: fit-content;
-	margin-top: 34px;
+	margin-top: 20px;
 }
 .decoElementModalePhoto{
 	position: absolute;
