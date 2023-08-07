@@ -3,6 +3,17 @@ async function getWorks(){
   return result.json()
 }
 
+function callResetForm(modalPhotoBox){
+  const modalphotoBoxEmpty = createElementWithClasses('div', ['modalphotoBoxEmpty']);
+  modalPhotoBox.appendChild(modalphotoBoxEmpty);
+  // Icon
+  const modalphotoBoxEmptyIcon = createElementWithClasses('i', ['fa-sharp', 'fa-regular', 'fa-image']);
+  modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
+  // Info text for the picture 
+  const modalphotoBoxEmptyText = createElementWithClasses('p', ['modalPhotoBoxEmptyText']);
+  modalphotoBoxEmptyText.textContent = 'jpeg, png : 4mo max';
+  modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyText);
+}
  // function of delete elements of gallery
  function deleteGalleryElement(imageId, figureModale,miniGallery) {
   const deleteButton = createElementWithClasses('div', ['trashBox']);
@@ -179,15 +190,7 @@ fetch('http://localhost:5678/api/works')
     const modalPhotoBox = createElementWithClasses('div', ['modalPhotoBox']);
     modalContentPhoto.appendChild(modalPhotoBox);
 
-    const modalphotoBoxEmpty = createElementWithClasses('div', ['modalphotoBoxEmpty']);
-    modalPhotoBox.appendChild(modalphotoBoxEmpty);
-    // Icon
-    const modalphotoBoxEmptyIcon = createElementWithClasses('i', ['fa-sharp', 'fa-regular', 'fa-image']);
-    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyIcon);
-    // Info text for the picture 
-    const modalphotoBoxEmptyText = createElementWithClasses('p', ['modalPhotoBoxEmptyText']);
-    modalphotoBoxEmptyText.textContent = 'jpeg, png : 4mo max';
-    modalphotoBoxEmpty.appendChild(modalphotoBoxEmptyText);
+    callResetForm(modalPhotoBox);
 
     const modalPhotoBoxEmptyForm = createElementWithClasses('form', ['modalPhotoBoxForm']);
     modalContentPhoto.appendChild(modalPhotoBoxEmptyForm);
@@ -316,8 +319,9 @@ fetch('http://localhost:5678/api/works')
         })
         .then(function (data) {
           closeModal();
+          modalPhotoBox.innerHTML='';
           // form to zero after sending 
-          modalPhotoBox.innerHTML = '';
+          callResetForm(modalPhotoBox);
           addButton.style.display = 'block';
           init();
 
@@ -329,3 +333,4 @@ fetch('http://localhost:5678/api/works')
 
     submitButton.addEventListener('click', sendNewGalleryElement);
   })
+   
